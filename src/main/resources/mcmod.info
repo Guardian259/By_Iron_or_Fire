@@ -1,0 +1,16 @@
+[
+{
+  "modid": "bif",
+  "name": "By Iron or Fire",
+  "description": "A Combat Enhancement Mod.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Guardian"],
+  "credits": "Special thanks to Tiviacz1337, KaptainWutax, XzeroAir, TurtyWurty, gigaherz,and Bright_Spark for their assistance and advice, as well as, the Forge and FML guys, for making Forge and FML",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

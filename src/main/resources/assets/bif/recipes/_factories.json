@@ -1,0 +1,5 @@
+{
+  "recipes":{
+    "dyeable_armor": "guardian.by_iron_or_fire.item.recipes.DyeableArmorRecipesFactory"
+  }
+}
