@@ -1,15 +1,17 @@
 package guardian.by_iron_or_fire.util.handlers;
 
-import guardian.by_iron_or_fire.client.renderer.entity.DynamicRenderPlayer;
+import guardian.by_iron_or_fire.client.renderer.entity.layers.LayerDynamicName;
 import guardian.by_iron_or_fire.util.References;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;import net.minecraft.item.ItemArmor;
+import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.lwjgl.opengl.GL11;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class PlayerLabelHandler {
     public static int legs;
     public static int chest;
     public static int head;
-    private static DynamicRenderPlayer dynamicName;
+    public static LayerDynamicName dynamicName;
 
     public static final HashMap<String, int[]> idMap = new HashMap<>();
     public static final HashMap<String, int[]> invMap = new HashMap<>();
@@ -48,70 +50,76 @@ public class PlayerLabelHandler {
         invMap.put("NAME_RANGE", new int[]{head, chest, legs, feet, viewDistance});
     }
 
-    @SubscribeEvent
-    public void renderPlayerPre(RenderPlayerEvent.Pre event){
-        GL11.glPushMatrix();
-    }
 
-    @SubscribeEvent
-    public void renderPlayerPost(){
-        GL11.glPopMatrix();
-    }
-
-
+    /**updates every tick to and determines whether or not the players nameplate render range has changed*/
     @SubscribeEvent
     public static void onPlayerLivingLabel(RenderPlayerEvent event) {
 
-            playerArmorInv = event.getEntityPlayer().inventory.armorInventory;
+        /**armor inventory (List) of the current player*/
+        playerArmorInv = event.getEntityPlayer().inventory.armorInventory;
 
-            int[] maxViewRange = invMap.get("NAME_RANGE");
-            int[] defaultRange = idMap.get("IRON");
+        int[] maxViewRange = invMap.get("NAME_RANGE");
+        int[] defaultRange = idMap.get("IRON");
 
-            /**is checking to see if the player is even wearing anything*/
-            if (playerArmorInv != null) {
-                for (int i = 0; i < playerArmorInv.size(); i++) {
-                    /**double checks to ensure the item in the slot is an Armor piece*/
-                    if (playerArmorInv.get(i) != ItemStack.EMPTY && playerArmorInv.get(i) instanceof ItemArmor) {
-                        int armorType = ((ItemArmor) event.getEntityPlayer().inventory.armorInventory.get(i).getItem()).armorType.getSlotIndex();
-                        /**gets the Armor Material and returns the render range from that item*/
-                        ItemArmor.ArmorMaterial armorMaterial = ((ItemArmor) event.getEntityPlayer().inventory.armorInventory.get(i).getItem()).getArmorMaterial();
-                        wornArmorMaterial(armorMaterial, armorType);
-                        maxViewRange[armorType] = renderRange;
-                    } else {
-                        maxViewRange[i] = defaultRange[i];
-                    }
-                    /**once all item ranges have been compiled they are summed as the viewDistance*/
-                    maxViewRange[4] = maxViewRange[0] + maxViewRange[1] + maxViewRange[2] + maxViewRange[3];
-                    invMap.replace("NAME_RANGE", maxViewRange);
+        /**is checking to see if the player is even wearing anything*/
+        //if (playerArmorInv != null) {
+            /**loops through all equipped items*/
+            for (int i = 0; i < playerArmorInv.size(); i++) {
+                /**the current ItemStack in question*/
+                ItemStack itemStack = event.getEntityPlayer().inventory.armorInventory.get(i);
+
+                /**double checks to ensure the item in the slot is an actual armor piece; for future mod compatibility*/
+                if (itemStack != ItemStack.EMPTY && itemStack.getItem() instanceof ItemArmor) {
+                    /**gets the Armor Material, plus type, and returns the render range from that item*/
+                    int armorType = ((ItemArmor) itemStack.getItem()).armorType.getSlotIndex();
+                    ItemArmor.ArmorMaterial armorMaterial = ((ItemArmor) itemStack.getItem()).getArmorMaterial();
+                    wornArmorMaterial(armorMaterial, armorType);
+
+                    /**simple check for if an eyltra is attached; variants of leather chestplates only*/
+                    hasAttachedEyltra(itemStack);
+                    /**setting of the this particular armor piece's render range into the array*/
+                    maxViewRange[armorType] = renderRange;
+                }else {
+                /**safety net for if the item was either a modded item or the slot was actually empty*/
+                maxViewRange[i] = defaultRange[i];
                 }
+                /**once all item ranges have been compiled they are summed as the viewDistance*/
+                maxViewRange[4] = maxViewRange[0] + maxViewRange[1] + maxViewRange[2] + maxViewRange[3];
+                invMap.replace("NAME_RANGE", maxViewRange);
             }
-            if (dynamicName == null) {
-                /**actually sets the nameplate render ranges for both the normal and slim player models*/
-                final String s = ((AbstractClientPlayer) event.getEntityPlayer()).getSkinType();
-                if (s.contains("slim")) {
-                    setRenderRange(true, maxViewRange[4], (maxViewRange[4] / 2));
-                } else {
-                    setRenderRange(false, maxViewRange[4], (maxViewRange[4] / 2));
-                }
-            } else {
-                dynamicName.DYNAMIC_NAME_TAG_RANGE = maxViewRange[4];
-                dynamicName.DYNAMIC_NAME_TAG_RANGE_SNEAK = (maxViewRange[4] / 2);
+        //}
+
+        //this is actually wrong; redefine this; and the dynamic name is never actually set properly as well...
+        //maybe...
+        if (dynamicName == null) {
+            /**actually sets the nameplate render ranges for both the normal and slim player models*/
+            final String s = ((AbstractClientPlayer) event.getEntityPlayer()).getSkinType();
+            if (s.contains("slim")) {
+                setRenderRange( maxViewRange[4], (maxViewRange[4] / 2));
+            }else {
+                setRenderRange(maxViewRange[4], (maxViewRange[4] / 2));
             }
+        /**if player is wearing nothing the vanilla range is used*/
+        }else {
+            setRenderRange(maxViewRange[4], (maxViewRange[4] / 2));
+        }
+    }
+
+    /**
+     * runs a check for the NBT of an attached Elytra and doubles the render range if true
+     */
+    public static void hasAttachedEyltra(ItemStack stack){
+        if(stack.hasTagCompound() && stack.getTagCompound().hasKey("attached_elytra")){
+            renderRange = renderRange * 2;
+        }
     }
 
     /**
      * sets the DynamicPlayerRender ranges for the normal and sneak parameters
      */
-    public static void setRenderRange(boolean smallUse,int range,int rangeSneak){
-        if (smallUse) {
-            dynamicName = new DynamicRenderPlayer(Minecraft.getMinecraft().getRenderManager(), smallUse);
+    public static void setRenderRange(int range, int rangeSneak){
             dynamicName.DYNAMIC_NAME_TAG_RANGE = range;
-            dynamicName.DYNAMIC_NAME_TAG_RANGE_SNEAK = (rangeSneak / 2);
-        }else {
-            dynamicName = new DynamicRenderPlayer(Minecraft.getMinecraft().getRenderManager());
-            dynamicName.DYNAMIC_NAME_TAG_RANGE = range;
-            dynamicName.DYNAMIC_NAME_TAG_RANGE_SNEAK = (rangeSneak / 2);
-        }
+            dynamicName.DYNAMIC_NAME_TAG_RANGE_SNEAK = rangeSneak;
     }
 
     /**

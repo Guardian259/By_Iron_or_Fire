@@ -25,7 +25,7 @@ import java.util.Random;
 
 public class GuiArmorer extends GuiContainer implements IContainerListener {
 
-    /**extended container within the vanilla anvil, is toggled by the GuiAnvilToggle button*/
+    /**Extended container within the vanilla anvil, is toggled by the GuiAnvilToggle button*/
 
     final ResourceLocation guiAnvilArmorer = new ResourceLocation(References.MODID,"textures/gui/container/anvil_advanced_gui.png");
 
@@ -87,11 +87,11 @@ public class GuiArmorer extends GuiContainer implements IContainerListener {
         this.renderHoveredToolTip(mouseX, mouseY);
         GlStateManager.disableLighting();
         GlStateManager.disableBlend();
-
-
     }
 
-    /**will eventually add in custom text, experience cost, and ToolTips*/
+    /**
+     * will eventually add in experience cost and ToolTips
+     */
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
@@ -107,7 +107,7 @@ public class GuiArmorer extends GuiContainer implements IContainerListener {
         GlStateManager.pushMatrix();
         {
 
-            /**Displays the item to be made for button 1*/
+            //Displays the item to be made for button 1
             if (selectPrimary.enabled) {
                 mc.getRenderItem().renderItemAndEffectIntoGUI(new ItemStack(primaryOutItemStack.getItem()), 61, 14);
             }
@@ -123,10 +123,10 @@ public class GuiArmorer extends GuiContainer implements IContainerListener {
                     }
                 }
                 FontRenderer fontrenderer = this.mc.standardGalacticFontRenderer;
-                fontrenderer.drawSplitString(primaryString, centerX - 42, guiHeight - 151 /**centerY - 25*/, primaryStringWidth, (6839882 & 16711422) >> 1);
+                fontrenderer.drawSplitString(primaryString, centerX - 42, guiHeight - 151 /*centerY - 25*/, primaryStringWidth, (6839882 & 16711422) >> 1);
             }
             GlStateManager.pushMatrix();
-            /**Displays the item to be made for button 2*/
+            //Displays the item to be made for button 2
             if (selectSecondary.enabled) {
                 mc.getRenderItem().renderItemAndEffectIntoGUI(new ItemStack(secondaryOutItemStack.getItem()), 61, 33);
             }
@@ -142,26 +142,28 @@ public class GuiArmorer extends GuiContainer implements IContainerListener {
                     }
                 }
                 FontRenderer fontrenderer = this.mc.standardGalacticFontRenderer;
-                fontrenderer.drawSplitString(secondaryString, centerX - 42, guiHeight - 132 /**centerY - 6*/, secondaryStringWidth, (6839882 & 16711422) >> 1);
+                fontrenderer.drawSplitString(secondaryString, centerX - 42, guiHeight - 132 /*centerY - 6*/, secondaryStringWidth, (6839882 & 16711422) >> 1);
 
             }
             GlStateManager.pushMatrix();
         }
         GlStateManager.popMatrix();
 
-        /**this generates the tooltips for the button items. currently they seem to require an offset to appear correct. may need changed*/
+        //this generates the tooltips for the button items. currently they seem to require an offset to appear correct. may need changed
         if(selectPrimary.enabled && selectPrimary.isMouseOver()){
             this.renderToolTip(primaryOutItemStack,(mouseX - 124), (mouseY - 30));
         }else {
-            /** this is using the primary item due to the secondary item not yet being rendered. will need to be changed*/
+            //this is using the primary item due to the secondary item not yet being rendered. will need to be changed
             if (selectSecondary.enabled && selectSecondary.isMouseOver()) {
                 this.renderToolTip(primaryOutItemStack, (mouseX - 124), (mouseY - 30));
             }
         }
     }
 
-    /**server container to client gui information transfer.
-     * this tell the gui what buttons to activate and what output item to show*/
+    /**
+     * server container to client gui information transfer.
+     * this tells the gui what buttons to activate and what output item to show
+     */
     public void updateButtons(){
         selectPrimary.enabled = this.anvil.primaryActive;
         selectSecondary.enabled = this.anvil.secondaryActive;
@@ -184,7 +186,7 @@ public class GuiArmorer extends GuiContainer implements IContainerListener {
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
 
-        /**checks what button was moused over during the click and tells the container which button it was*/
+        //checks what button was moused over during the click and tells the container which button it was
         if(selectPrimary.isMouseOver() && this.anvil.enchantItem(this.mc.player,0)){
             this.mc.playerController.sendEnchantPacket(this.anvil.windowId,0);
         }else if(selectSecondary.isMouseOver() &&  this.anvil.enchantItem(this.mc.player,0)){

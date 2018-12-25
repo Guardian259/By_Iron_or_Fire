@@ -2,6 +2,7 @@ package guardian.by_iron_or_fire.init;
 
 import guardian.by_iron_or_fire.item.ArmorBase;
 import guardian.by_iron_or_fire.item.DyeableArmor;
+import guardian.by_iron_or_fire.item.ItemMortarCore;
 import guardian.by_iron_or_fire.item.MortarBase;
 import guardian.by_iron_or_fire.util.References;
 import net.minecraft.init.SoundEvents;
@@ -21,7 +22,6 @@ public class ItemInit {
     /**
      *Materials
      */
-
     public static final ItemArmor.ArmorMaterial CHAINED_EMERALD = EnumHelper.addArmorMaterial("chained_emerald", References.MODID + ":chained_emerald", 28, new int[]{5, 8, 10, 5}, 9, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 3.0F);
     public static final ItemArmor.ArmorMaterial EMERALD = EnumHelper.addArmorMaterial("emerald", References.MODID + ":emerald", 26, new int[]{5, 8, 10, 5}, 9, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 3.0F);
     public static final ItemArmor.ArmorMaterial CHAINED_DIAMOND = EnumHelper.addArmorMaterial("chained_diamond", References.MODID + ":chained_diamond", 36, new int[]{4, 7, 9, 4}, 10, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 2.0F);
@@ -32,6 +32,8 @@ public class ItemInit {
      * Weapon Items
      */
     public static final Item HAND_MORTAR = new MortarBase("Hand_Mortar");
+    public static final Item MORTAR_CORE = new ItemMortarCore("Mortar_Core");
+
 
 
     /**
