@@ -25,22 +25,19 @@ public class ClientProxy extends ServerProxy {
     @Override
     public void init(FMLInitializationEvent event) {
 
-        /**
-         * renders the Elytra model for chestplates with the tag `Leathered Elytra` on players; no actual functionality
-         */
+        //renders the Elytra model for chestplates with the tag `Leathered Elytra` on players; no actual functionality
         for(RenderPlayer playerRender : Minecraft.getMinecraft().getRenderManager().getSkinMap().values()) {
             playerRender.addLayer(new LayerLeatheredElytra(playerRender));
         }
 
-        /**
-         * renders the Elytra model for chestplates with the tag `Leathered Elytra` on armor stands; no actual functionality
-         */
+
+        // renders the Elytra model for chestplates with the tag `Leathered Elytra` on armor stands; no actual functionality
         Render<Entity> renderObject =  Minecraft.getMinecraft().getRenderManager().getEntityClassRenderObject(EntityArmorStand.class);
         if(renderObject instanceof RenderLivingBase) {
             ((RenderLivingBase<?>) renderObject).addLayer(new LayerLeatheredElytra(((RenderLivingBase) renderObject)));
         }
 
-        /**
+        /*
          * adds a new instance of the custom Nameplate into the rendering system
          * should only render in MP, as that's the only time names are generated, but currently non-functional
          */

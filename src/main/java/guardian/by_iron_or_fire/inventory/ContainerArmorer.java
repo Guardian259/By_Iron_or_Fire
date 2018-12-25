@@ -142,6 +142,8 @@ public class ContainerArmorer extends Container {
      *
      * @param primaryMaterial this is the actual material of the primary armor; used to determine the first half of the new name.
      * @param armorType this is an int which identifies what type of armor the primary piece is; used to determine the second half of the new name
+     *
+     * TODO: Possibly implement a system which will allow for a chained render Layer to be added to an items image and its 3D model
      */
     //this name might be better if the name is changed to armorVariants, as this can be made more generic
     public void chainedVariants(ItemArmor.ArmorMaterial primaryMaterial, int armorType){
@@ -194,9 +196,9 @@ public class ContainerArmorer extends Container {
      * and uses said values to determine the resulting health of a new Items healthpool.
      * Assumes the integer value <code>chainedDamage</code> is to be used as the damage value of a resulting ItemStack.
      *
-     * @param mainStack The first ItemStack in question; is used to obtain its Damage and MaxDamage
-     * @param underStack The second ItemStack in question; is used to obtain its Damage and MaxDamage
-     * @param resultingItem The new ItemStack to be created; must have been generated prior to this methods runtime
+     * @param mainStack The first <code>ItemStack</code> in question; is used to obtain its Damage and MaxDamage
+     * @param underStack The second <code>ItemStack</code> in question; is used to obtain its Damage and MaxDamage
+     * @param resultingItem The new <code>ItemStack</code> to be created; must have been generated prior to this methods runtime
      */
     public void damageContribution(ItemStack mainStack, ItemStack underStack, ItemStack resultingItem){
         //Grabs the decimal version of the remaining health in the healthpool of each item
@@ -287,10 +289,8 @@ public class ContainerArmorer extends Container {
         }
     }
 
-    /**
+    /*
      * Handles the given Button-click on the server, currently only used by enchanting, and this Container, name is for legacy.
-     *
-     * TODO: simplify down
      */
     @Override
     public boolean enchantItem(EntityPlayer playerIn, int id) {

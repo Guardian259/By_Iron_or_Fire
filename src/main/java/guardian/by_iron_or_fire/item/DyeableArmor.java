@@ -1,35 +1,25 @@
 package guardian.by_iron_or_fire.item;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import static guardian.by_iron_or_fire.init.ItemInit.CHAINED_LEATHER;
 
-
+/**
+ * within this Class much of the codes body has been riped from ItemArmor.
+ * Material Leather has been replace with Chained_Leather to override
+ * the overlay and dyeing system and allow for the modded variants
+ *
+ * TODO: Possibly convert the use of CHAINED_LEATHER to HashMaps to allow for further Integration and compatibility
+ */
 public class DyeableArmor extends ArmorBase{
 
     public DyeableArmor(String name, ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) {
-
         super(name, materialIn, renderIndexIn, equipmentSlotIn);
-        /**
-         * not to sure why this is here...
-         * throws an error when debugging for MP...
-         * SP works without this... apparently... keeping this for now
-         */
-        //Minecraft.getMinecraft().getItemColors();
-
     }
 
-
-    /**
-     * Everything past here has been riped from ItemArmor and
-     * Material Leather replace with Chained_Leather in an attempt to override
-     * the overlay and dyeing system....
-     */
-
-    /**Return whether the specified armor ItemStack has a color.*/
+    //Returns whether the specified armor ItemStack has a color
     @Override
     public boolean hasColor(ItemStack stack)
     {
@@ -44,10 +34,8 @@ public class DyeableArmor extends ArmorBase{
         }
     }
 
-    /**
-     * Return the color for the specified armor ItemStack.
-     */
 
+    //Returns the color for the specified armor ItemStack.
     @Override
     public int getColor(ItemStack stack)
     {
@@ -71,9 +59,7 @@ public class DyeableArmor extends ArmorBase{
     }
 
 
-    /**
-     * Remove the color from the specified armor ItemStack.
-     */
+    //Removes the color from the specified armor ItemStack.
     @Override
     public void removeColor(ItemStack stack)
     {
@@ -93,9 +79,7 @@ public class DyeableArmor extends ArmorBase{
         }
     }
 
-    /**
-     * Sets the color of the specified armor ItemStack
-     */
+    //Sets the color of the specified armor ItemStack
     @Override
     public void setColor(ItemStack stack, int color)
     {

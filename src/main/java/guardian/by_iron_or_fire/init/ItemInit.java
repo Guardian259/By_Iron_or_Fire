@@ -19,7 +19,7 @@ public class ItemInit {
     public static final List<Item> ITEMS = new ArrayList<Item>();
 
 
-    /**
+    /*
      *Materials
      */
     public static final ItemArmor.ArmorMaterial CHAINED_EMERALD = EnumHelper.addArmorMaterial("chained_emerald", References.MODID + ":chained_emerald", 28, new int[]{5, 8, 10, 5}, 9, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 3.0F);
@@ -28,7 +28,7 @@ public class ItemInit {
     public static final ItemArmor.ArmorMaterial CHAINED_IRON = EnumHelper.addArmorMaterial("chained_iron", References.MODID + ":chained_iron", 18, new int[]{3, 6, 7, 4}, 9, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 0.0F);
     public static final ItemArmor.ArmorMaterial CHAINED_GOLD = EnumHelper.addArmorMaterial("chained_gold", References.MODID + ":chained_gold", 10, new int[]{2, 4, 6, 3}, 25, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 0.0F);
     public static final ItemArmor.ArmorMaterial CHAINED_LEATHER = EnumHelper.addArmorMaterial("chained_leather", References.MODID + ":chained_leather", 8, new int[]{2, 3, 4, 2}, 15, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 0.0F);
-    /**
+    /*
      * Weapon Items
      */
     public static final Item HAND_MORTAR = new MortarBase("Hand_Mortar");
@@ -36,11 +36,11 @@ public class ItemInit {
 
 
 
-    /**
+    /*
      *Armor Items
      */
 
-    /**
+    /*
      Emerald Variant
      */
     public static final Item CHAINED_EMERALD_HELMET = new ArmorBase("chained_emerald_helmet", CHAINED_EMERALD,3, EntityEquipmentSlot.HEAD);
@@ -48,7 +48,7 @@ public class ItemInit {
     public static final Item CHAINED_EMERALD_LEGGINGS = new ArmorBase("chained_emerald_leggings", CHAINED_EMERALD,3,EntityEquipmentSlot.LEGS);
     public static final Item CHAINED_EMERALD_BOOTS = new ArmorBase("chained_emerald_boots", CHAINED_EMERALD,3,EntityEquipmentSlot.FEET);
 
-    /**
+    /*
      Emerald Armor
      */
     public static final Item EMERALD_HELMET = new ArmorBase("emerald_helmet", EMERALD,3, EntityEquipmentSlot.HEAD);
@@ -56,7 +56,7 @@ public class ItemInit {
     public static final Item EMERALD_LEGGINGS = new ArmorBase("emerald_leggings", EMERALD,3,EntityEquipmentSlot.LEGS);
     public static final Item EMERALD_BOOTS = new ArmorBase("emerald_boots", EMERALD,3,EntityEquipmentSlot.FEET);
 
-    /**
+    /*
     Diamond Variant
      */
     public static final Item CHAINED_DIAMOND_HELMET = new ArmorBase("chained_diamond_helmet", CHAINED_DIAMOND,3, EntityEquipmentSlot.HEAD);
@@ -64,7 +64,7 @@ public class ItemInit {
     public static final Item CHAINED_DIAMOND_LEGGINGS = new ArmorBase("chained_diamond_leggings", CHAINED_DIAMOND,3,EntityEquipmentSlot.LEGS);
     public static final Item CHAINED_DIAMOND_BOOTS = new ArmorBase("chained_diamond_boots", CHAINED_DIAMOND,3,EntityEquipmentSlot.FEET);
 
-    /**
+    /*
      *Iron Variant
      */
     public static final Item CHAINED_IRON_HELMET = new ArmorBase("chained_iron_helmet", CHAINED_IRON,2,EntityEquipmentSlot.HEAD);
@@ -72,7 +72,7 @@ public class ItemInit {
     public static final Item CHAINED_IRON_LEGGINGS = new ArmorBase("chained_iron_leggings", CHAINED_IRON,2,EntityEquipmentSlot.LEGS);
     public static final Item CHAINED_IRON_BOOTS = new ArmorBase("chained_iron_boots", CHAINED_IRON,2,EntityEquipmentSlot.FEET);
 
-    /**
+    /*
      *Gold Variant
      */
     public static final Item CHAINED_GOLD_HELMET = new ArmorBase("chained_gold_helmet", CHAINED_GOLD,4,EntityEquipmentSlot.HEAD);
@@ -80,7 +80,7 @@ public class ItemInit {
     public static final Item CHAINED_GOLD_LEGGINGS = new ArmorBase("chained_gold_leggings", CHAINED_GOLD,4,EntityEquipmentSlot.LEGS);
     public static final Item CHAINED_GOLD_BOOTS = new ArmorBase("chained_gold_boots", CHAINED_GOLD,4,EntityEquipmentSlot.FEET);
 
-    /**
+    /*
      *Leather Variant
      */
     public static final Item CHAINED_LEATHER_HELMET = new DyeableArmor("chained_leather_helmet", CHAINED_LEATHER,0,EntityEquipmentSlot.HEAD);

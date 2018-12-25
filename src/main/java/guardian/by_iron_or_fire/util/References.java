@@ -9,7 +9,7 @@ public class References {
     public static final String CLIENT_PROXY = "guardian.by_iron_or_fire.util.proxy.ClientProxy";
     public static final String SERVER_PROXY = "guardian.by_iron_or_fire.util.proxy.ServerProxy";
 
-    /**this is the percentage chance for totem curses in numerical form*/
+    //this is the percentage chance for totem curses in numerical form
     public static int armorCurseChance = 15;
 
 }
