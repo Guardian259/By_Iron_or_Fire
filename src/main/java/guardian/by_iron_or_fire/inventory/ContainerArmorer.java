@@ -257,7 +257,7 @@ public class ContainerArmorer extends Container {
             else if (itemStackUnder.getItem() instanceof ItemElytra) {
                 if (((ItemArmor) itemStackMain.getItem()).armorType == EntityEquipmentSlot.CHEST) {
                     if ((((ItemArmor) itemStackMain.getItem()).getArmorMaterial() == LEATHER) || (((ItemArmor) itemStackMain.getItem()).getArmorMaterial() == CHAINED_LEATHER)) {
-                        nbtIntGen(itemStackMain,"attached_elytra",0);
+                        nbtIntGen(itemStackMain,"attached_elytra",432);
                     }
                 }
             }
@@ -295,7 +295,7 @@ public class ContainerArmorer extends Container {
     @Override
     public boolean enchantItem(EntityPlayer playerIn, int id) {
         //performs the combination and creation of the generated Item
-        if(((primaryActive || secondaryActive)&& !bonusActive) /*&& (itemStackPrimary != null || itemStackSecondary != null)*/) {
+        if(((primaryActive || secondaryActive) && !bonusActive)) {
             //when button one is pressed
             if (id == 0) {
                 this.armorerSlots.setInventorySlotContents(0, itemStackPrimary);
@@ -310,7 +310,7 @@ public class ContainerArmorer extends Container {
          * when button one is pressed and the bonus item is a totem;
          * might be able to merge this into the first one
          */
-        }else if((primaryActive && bonusActive) /* && (itemStackPrimary != null)*/){
+        }else if((primaryActive && bonusActive)){
             if(id == 0){
                 this.armorerSlots.setInventorySlotContents(0, itemStackPrimary);
                 this.secondarySlot.setInventorySlotContents(0, ItemStack.EMPTY);

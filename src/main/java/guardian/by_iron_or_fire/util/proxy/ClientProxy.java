@@ -42,7 +42,7 @@ public class ClientProxy extends ServerProxy {
          * should only render in MP, as that's the only time names are generated, but currently non-functional
          */
         for (RenderPlayer playerRender : Minecraft.getMinecraft().getRenderManager().getSkinMap().values()) {
-            playerRender.addLayer(new LayerDynamicName(playerRender.getRenderManager()));
+            playerRender.addLayer(new LayerDynamicName(playerRender));
         }
 
     }
